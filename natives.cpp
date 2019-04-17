@@ -61,7 +61,7 @@ cell_t Native_AddParam(IPluginContext *pContext, const cell_t *params)
 		return 0;
 	}
 
-	ParamInfo info;
+	::ParamInfo info;
 
 	info.type = (HookParamType)params[2];
 

@@ -6,6 +6,8 @@
 #include <macro-assembler-x86.h>
 #include <vector>
 
+using namespace sp;
+
 enum MRESReturn
 {
 	MRES_ChangedHandled = -2,	// Use changed values and return MRES_Handled
@@ -120,7 +122,7 @@ public:
 class DHooksInfo
 {
 public:
-	ke::Vector<ParamInfo> params;
+	ke::Vector<::ParamInfo> params;
 	int offset;
 	unsigned int returnFlag;
 	ReturnType returnType;
@@ -167,7 +169,6 @@ SourceHook::PassInfo::PassType GetParamTypePassType(HookParamType type);
 #ifndef  WIN32
 static void *GenerateThunk(ReturnType type)
 {
-	using namespace sp;
 	sp::MacroAssembler masm;
 	static const size_t kStackNeeded = (2) * 4; // 2 args max
 	static const size_t kReserve = ke::Align(kStackNeeded+8, 16)-8;
@@ -303,7 +304,7 @@ public:
 	ReturnType returnType;
 	HookType hookType;
 	ThisPointerType thisType;
-	ke::Vector<ParamInfo> params;
+	ke::Vector<::ParamInfo> params;
 	int offset;
 	IPluginFunction *callback;
 };

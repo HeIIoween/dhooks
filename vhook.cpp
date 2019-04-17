@@ -28,7 +28,9 @@ DHooksManager::DHooksManager(HookSetup *setup, void *iface, IPluginFunction *rem
 	this->callback->thisType = setup->thisType;
 	this->callback->post = post;
 	this->callback->hookType = setup->hookType;
-	this->callback->params = setup->params;
+
+	for(int i = setup->params.length() -1; i >= 0; i--)
+		this->callback->params.append(setup->params[i]);
 
 	this->addr = 0;
 
@@ -47,7 +49,7 @@ DHooksManager::DHooksManager(HookSetup *setup, void *iface, IPluginFunction *rem
 
 	CProtoInfoBuilder protoInfo(ProtoInfo::CallConv_ThisCall);
 
-	for(int i = this->callback->params.size() -1; i >= 0; i--)
+	for(int i = this->callback->params.length() -1; i >= 0; i--)
 	{
 		protoInfo.AddParam(this->callback->params.at(i).size, this->callback->params.at(i).pass_type, PASSFLAG_BYVAL, NULL, NULL, NULL, NULL);//This seems like we need to do something about it at some point...
 	}
@@ -136,7 +138,7 @@ HookParamsStruct::~HookParamsStruct()
 	}
 	if (this->newParams != NULL)
 	{
-		for (int i = dg->params.size() - 1; i >= 0; i--)
+		for (int i = dg->params.length() - 1; i >= 0; i--)
 		{
 			size_t offset = GetParamOffset(this, i);
 			void *addr = (void **)((intptr_t)this->newParams + offset);
@@ -178,9 +180,9 @@ HookParamsStruct *GetParamStruct(DHooksCallback *dg, void **argStack, size_t arg
 	size_t paramsSize = GetParamsSize(dg);
 
 	params->newParams = (void **)malloc(paramsSize);
-	params->isChanged = (bool *)malloc(dg->params.size() * sizeof(bool));
+	params->isChanged = (bool *)malloc(dg->params.length() * sizeof(bool));
 
-	for (unsigned int i = 0; i < dg->params.size(); i++)
+	for (unsigned int i = 0; i < dg->params.length(); i++)
 	{
 		*(void **)((intptr_t)params->newParams + GetParamOffset(params, i)) = NULL;
 		params->isChanged[i] = false;
@@ -701,7 +703,7 @@ SDKVector *Callback_vector(DHooksCallback *dg, void **argStack)
 			{
 				if(returnStruct->isChanged)
 				{
-					*vec_result = **(SDKVector **)returnStruct->newResult;
+					*vec_result = *(SDKVector *)returnStruct->newResult;
 				}
 				else //Throw an error if no override was set
 				{
@@ -723,7 +725,7 @@ SDKVector *Callback_vector(DHooksCallback *dg, void **argStack)
 				{
 					g_SHPtr->SetRes(MRES_OVERRIDE);
 					mres = MRES_OVERRIDE;
-					*vec_result = **(SDKVector **)returnStruct->newResult;
+					*vec_result = *(SDKVector *)returnStruct->newResult;
 				}
 				else //Throw an error if no override was set
 				{
@@ -740,7 +742,7 @@ SDKVector *Callback_vector(DHooksCallback *dg, void **argStack)
 				{
 					g_SHPtr->SetRes(MRES_SUPERCEDE);
 					mres = MRES_SUPERCEDE;
-					*vec_result = **(SDKVector **)returnStruct->newResult;
+					*vec_result = *(SDKVector *)returnStruct->newResult;
 				}
 				else //Throw an error if no override was set
 				{

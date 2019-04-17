@@ -88,7 +88,7 @@ cell_t Native_AddParam(IPluginContext *pContext, const cell_t *params)
 	}
 
 	info.pass_type = GetParamTypePassType(info.type);
-	setup->params.push_back(info);
+	setup->params.append(info);
 
 	return 1;
 }
@@ -270,13 +270,13 @@ cell_t Native_GetParam(IPluginContext *pContext, const cell_t *params)
 		return 0;
 	}
 
-	if(params[2] < 0 || params[2] > (int)paramStruct->dg->params.size())
+	if(params[2] < 0 || params[2] > (int)paramStruct->dg->params.length())
 	{
-		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.size());
+		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.length());
 	}
 	if(params[2] == 0)
 	{
-		return paramStruct->dg->params.size();
+		return paramStruct->dg->params.length();
 	}
 
 	int index = params[2] - 1;
@@ -319,9 +319,9 @@ cell_t Native_SetParam(IPluginContext *pContext, const cell_t *params)
 		return 0;
 	}
 
-	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.size())
+	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.length())
 	{
-		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.size());
+		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.length());
 	}
 
 	int index = params[2] - 1;
@@ -456,9 +456,9 @@ cell_t Native_GetParamVector(IPluginContext *pContext, const cell_t *params)
 		return 0;
 	}
 
-	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.size())
+	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.length())
 	{
-		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.size());
+		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.length());
 	}
 
 	int index = params[2] - 1;
@@ -498,9 +498,9 @@ cell_t Native_SetParamVector(IPluginContext *pContext, const cell_t *params)
 		return 0;
 	}
 
-	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.size())
+	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.length())
 	{
-		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.size());
+		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.length());
 	}
 
 	int index = params[2] - 1;
@@ -536,9 +536,9 @@ cell_t Native_GetParamString(IPluginContext *pContext, const cell_t *params)
 		return 0;
 	}
 
-	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.size())
+	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.length())
 	{
-		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.size());
+		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.length());
 	}
 
 	int index = params[2] - 1;
@@ -626,9 +626,9 @@ cell_t Native_SetParamString(IPluginContext *pContext, const cell_t *params)
 		return 0;
 	}
 
-	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.size())
+	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.length())
 	{
-		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.size());
+		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.length());
 	}
 
 	int index = params[2] - 1;
@@ -680,9 +680,9 @@ cell_t Native_GetParamObjectPtrVar(IPluginContext *pContext, const cell_t *param
 		return 0;
 	}
 
-	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.size())
+	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.length())
 	{
-		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.size());
+		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.length());
 	}
 
 	int index = params[2] - 1;
@@ -751,9 +751,9 @@ cell_t Native_SetParamObjectPtrVar(IPluginContext *pContext, const cell_t *param
 		return 0;
 	}
 
-	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.size())
+	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.length())
 	{
-		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.size());
+		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.length());
 	}
 
 	int index = params[2] - 1;
@@ -836,9 +836,9 @@ cell_t Native_GetParamObjectPtrVarVector(IPluginContext *pContext, const cell_t 
 		return 0;
 	}
 
-	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.size())
+	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.length())
 	{
-		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.size());
+		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.length());
 	}
 
 	int index = params[2] - 1;
@@ -890,9 +890,9 @@ cell_t Native_SetParamObjectPtrVarVector(IPluginContext *pContext, const cell_t 
 		return 0;
 	}
 
-	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.size())
+	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.length())
 	{
-		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.size());
+		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.length());
 	}
 
 	int index = params[2] - 1;
@@ -943,9 +943,9 @@ cell_t Native_GetParamObjectPtrString(IPluginContext *pContext, const cell_t *pa
 		return 0;
 	}
 
-	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.size())
+	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.length())
 	{
-		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.size());
+		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.length());
 	}
 
 	int index = params[2] - 1;
@@ -1050,9 +1050,9 @@ cell_t Native_IsNullParam(IPluginContext *pContext, const cell_t *params)
 		return 0;
 	}
 
-	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.size())
+	if(params[2] <= 0 || params[2] > (int)paramStruct->dg->params.length())
 	{
-		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.size());
+		return pContext->ThrowNativeError("Invalid param number %i max params is %i", params[2], paramStruct->dg->params.length());
 	}
 
 	int index = params[2] - 1;

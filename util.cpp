@@ -39,7 +39,7 @@ size_t GetParamsSize(DHooksCallback *dg)//Get the full size, this is for creatin
 {
 	size_t res = 0;
 
-	for (int i = dg->params.length() - 1; i >= 0; i--)
+	for (int i = dg->params.size() - 1; i >= 0; i--)
 	{
 		res += dg->params.at(i).size;
 	}

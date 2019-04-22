@@ -19,7 +19,7 @@
 		{ \
 			*(paramType *)vptr = *(paramType *)orgAddr; \
 		} \
-		if(i + 1 != dg->params.length()) \
+		if(i + 1 != dg->params.size()) \
 		{ \
 			vptr += dg->params.at(i).size; \
 		} \
@@ -27,7 +27,7 @@
 
 #define VSTK_PARAM_SWITCH_OBJECT() \
 		memcpy(vptr, objAddr, dg->params.at(i).size); \
-		if(i + 1 != dg->params.length()) \
+		if(i + 1 != dg->params.size()) \
 		{ \
 			vptr += dg->params.at(i).size; \
 		} \
@@ -65,9 +65,9 @@ T CallVFunction(DHooksCallback *dg, HookParamsStruct *paramStruct, void *iface)
 	if(paramStruct)
 	{
 		vptr += sizeof(void *);
-		paramInfo = (SourceMod::PassInfo *)malloc(sizeof(SourceMod::PassInfo) * dg->params.length());
+		paramInfo = (SourceMod::PassInfo *)malloc(sizeof(SourceMod::PassInfo) * dg->params.size());
 
-		for(int i = 0; i < (int)dg->params.length(); i++)
+		for(int i = 0; i < (int)dg->params.size(); i++)
 		{
 			size_t offset = GetParamOffset(paramStruct, i);
 
@@ -120,12 +120,12 @@ T CallVFunction(DHooksCallback *dg, HookParamsStruct *paramStruct, void *iface)
 
 	if(dg->returnType == ReturnType_Void)
 	{
-		pCall = g_pBinTools->CreateVCall(dg->offset, 0, 0, NULL, paramInfo, dg->params.length());
+		pCall = g_pBinTools->CreateVCall(dg->offset, 0, 0, NULL, paramInfo, dg->params.size());
 		pCall->Execute(vstk, NULL);
 	}
 	else
 	{
-		pCall = g_pBinTools->CreateVCall(dg->offset, 0, 0, &returnInfo, paramInfo, dg->params.length());
+		pCall = g_pBinTools->CreateVCall(dg->offset, 0, 0, &returnInfo, paramInfo, dg->params.size());
 		pCall->Execute(vstk, &ret);
 	}
 
@@ -164,8 +164,8 @@ SDKVector CallVFunction<SDKVector>(DHooksCallback *dg, HookParamsStruct *paramSt
 	if(paramStruct)
 	{
 		vptr += sizeof(void *);
-		paramInfo = (SourceMod::PassInfo *)malloc(sizeof(SourceMod::PassInfo) * dg->params.length());
-		for(int i = 0; i < (int)dg->params.length(); i++)
+		paramInfo = (SourceMod::PassInfo *)malloc(sizeof(SourceMod::PassInfo) * dg->params.size());
+		for(int i = 0; i < (int)dg->params.size(); i++)
 		{
 			size_t offset = GetParamOffset(paramStruct, i);
 
@@ -216,7 +216,7 @@ SDKVector CallVFunction<SDKVector>(DHooksCallback *dg, HookParamsStruct *paramSt
 
 	SDKVector ret;
 
-	pCall = g_pBinTools->CreateVCall(dg->offset, 0, 0, &returnInfo, paramInfo, dg->params.length());
+	pCall = g_pBinTools->CreateVCall(dg->offset, 0, 0, &returnInfo, paramInfo, dg->params.size());
 	pCall->Execute(vstk, &ret);
 
 	pCall->Destroy();
@@ -255,8 +255,8 @@ string_t CallVFunction<string_t>(DHooksCallback *dg, HookParamsStruct *paramStru
 	if(paramStruct)
 	{
 		vptr += sizeof(void *);
-		paramInfo = (SourceMod::PassInfo *)malloc(sizeof(SourceMod::PassInfo) * dg->params.length());
-		for(int i = 0; i < dg->params.length(); i++)
+		paramInfo = (SourceMod::PassInfo *)malloc(sizeof(SourceMod::PassInfo) * dg->params.size());
+		for(int i = 0; i < dg->params.size(); i++)
 		{
 			size_t offset = GetParamOffset(paramStruct, i);
 
@@ -307,7 +307,7 @@ string_t CallVFunction<string_t>(DHooksCallback *dg, HookParamsStruct *paramStru
 
 	string_t ret;
 
-	pCall = g_pBinTools->CreateVCall(dg->offset, 0, 0, &returnInfo, paramInfo, dg->params.length());
+	pCall = g_pBinTools->CreateVCall(dg->offset, 0, 0, &returnInfo, paramInfo, dg->params.size());
 	pCall->Execute(vstk, &ret);
 
 	pCall->Destroy();

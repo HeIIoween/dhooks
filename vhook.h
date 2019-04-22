@@ -122,7 +122,7 @@ public:
 class DHooksInfo
 {
 public:
-	ke::Vector<::ParamInfo> params;
+	std::vector<::ParamInfo> params;
 	int offset;
 	unsigned int returnFlag;
 	ReturnType returnType;
@@ -304,7 +304,7 @@ public:
 	ReturnType returnType;
 	HookType hookType;
 	ThisPointerType thisType;
-	ke::Vector<::ParamInfo> params;
+	std::vector<::ParamInfo> params;
 	int offset;
 	IPluginFunction *callback;
 };

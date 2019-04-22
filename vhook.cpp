@@ -29,8 +29,7 @@ DHooksManager::DHooksManager(HookSetup *setup, void *iface, IPluginFunction *rem
 	this->callback->post = post;
 	this->callback->hookType = setup->hookType;
 
-	for(int i = setup->params.length() -1; i >= 0; i--)
-		this->callback->params.append(setup->params[i]);
+	this->callback->params = setup->params;
 
 	this->addr = 0;
 
@@ -49,7 +48,7 @@ DHooksManager::DHooksManager(HookSetup *setup, void *iface, IPluginFunction *rem
 
 	CProtoInfoBuilder protoInfo(ProtoInfo::CallConv_ThisCall);
 
-	for(int i = this->callback->params.length() -1; i >= 0; i--)
+	for(int i = this->callback->params.size() -1; i >= 0; i--)
 	{
 		protoInfo.AddParam(this->callback->params.at(i).size, this->callback->params.at(i).pass_type, PASSFLAG_BYVAL, NULL, NULL, NULL, NULL);//This seems like we need to do something about it at some point...
 	}
@@ -138,7 +137,7 @@ HookParamsStruct::~HookParamsStruct()
 	}
 	if (this->newParams != NULL)
 	{
-		for (int i = dg->params.length() - 1; i >= 0; i--)
+		for (int i = dg->params.size() - 1; i >= 0; i--)
 		{
 			size_t offset = GetParamOffset(this, i);
 			void *addr = (void **)((intptr_t)this->newParams + offset);
@@ -180,9 +179,9 @@ HookParamsStruct *GetParamStruct(DHooksCallback *dg, void **argStack, size_t arg
 	size_t paramsSize = GetParamsSize(dg);
 
 	params->newParams = (void **)malloc(paramsSize);
-	params->isChanged = (bool *)malloc(dg->params.length() * sizeof(bool));
+	params->isChanged = (bool *)malloc(dg->params.size() * sizeof(bool));
 
-	for (unsigned int i = 0; i < dg->params.length(); i++)
+	for (unsigned int i = 0; i < dg->params.size(); i++)
 	{
 		*(void **)((intptr_t)params->newParams + GetParamOffset(params, i)) = NULL;
 		params->isChanged[i] = false;
